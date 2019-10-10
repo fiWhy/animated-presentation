@@ -5,24 +5,13 @@ type TerminalProps = PropsWithChildren<{
     width?: string;
     height?: string;
 }>;
-type ToolBarProps = PropsWithChildren<{}>;
-type LeftPartProps = PropsWithChildren<{}>;
-type RightPartProps = PropsWithChildren<{}>;
+
 type TerminalBodyProps = PropsWithChildren<{
     background?: string;
 }>;
 
-type ButtonProps = {
-    type: 'close' | 'minimize' | 'zoom'
-}
 
-const buttonColors = {
-    close: '#FC625C',
-    minimize: '#FDC141',
-    zoom: '#35CC4b'
-}
-
-export default styled.div<TerminalProps> `
+export const StyledTerminal = styled.div<TerminalProps> `
     &&& {
         font-family: Arial;
         position: relative;
@@ -32,22 +21,6 @@ export default styled.div<TerminalProps> `
         border-radius: 5px;
     }
 `;
-
-export const LeftPart = styled.div<LeftPartProps>`
-    position: absolute;
-`;
-export const RightPart = styled.p<RightPartProps>`
-    text-align: center;
-`;
-
-export const StyledToolBar = styled.div<ToolBarProps>`
-    border-radius: 5px 5px 0 0;
-    background-color: #f6f6f6;
-    color: #2d2d2d;
-    padding: 5px 8px;
-    border: 1px solid darken(#f6f6f6, 10%);
-`;
-
 
 export const StyledTerminalBody = styled.div<TerminalBodyProps>`
     min-height: 320px;
@@ -66,23 +39,11 @@ export const StyledTerminalBody = styled.div<TerminalBodyProps>`
     background-color: ${props => props.background || 'rgba(0, 0, 0, 0.85);'}
 `;
 
-export const Button = styled.div<ButtonProps>`
-    text-decoration: none;
-    width: 10px;
-    height: 10px;
-    display: inline-block;
-    text-align: center;
-    margin-right: 10px;
-    border-radius: 100%;
-    background-color: ${({ type }) => buttonColors[type]};
-    border: 1px solid darken(${({ type }) => buttonColors[type]})
-`
-
 
 export const StyledTerminalInput = styled.form`
     position: relative;
     display: inline-block;
-    width: 90%;
+    // width: 90%;
     
     input {
         position: relative;
@@ -107,13 +68,13 @@ export const StyledCommand = styled.div`
 `;
 
 export const StyledDir = styled.span`
-  color: #3CBBC6;
+//   color: #3CBBC6;
   font-weight: bold;
   margin-right: 8px;
   
-  &:before {
-    content: '➜';
-    color: #3BBB33;
-    margin-right: 10px;
-  }
+//   &:before {
+//     content: '➜';
+//     color: #3BBB33;
+//     margin-right: 10px;
+//   }
 `;

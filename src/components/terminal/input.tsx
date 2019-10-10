@@ -1,7 +1,15 @@
 import React, { FormEvent } from 'react';
-import { StyledTerminalInput, StyledCommand, StyledDir } from './styled';;
+import { StyledTerminalInput, StyledCommand, StyledDir } from './styled';
+import { prefixFormat, Command } from './contracts';
 
-type TerminalInputProps = { user: string; machine: string; onEnter?: (text: string) => void; }
+type TerminalInputProps = {
+    user: string;
+    machine: string;
+    position: string;
+    owner: string;
+    onEnter?: (command: Command) => void;
+}
+
 type TerminalInputState = {
     value: string;
 }
@@ -10,10 +18,20 @@ export default class TerminalInput extends React.Component<TerminalInputProps, T
     state = {
         value: ''
     }
+
+    get prefix() {
+        const { owner, machine, position, user } = this.props;
+        return prefixFormat(owner, machine, position, user);
+    }
+
     handleSubmit(evt: FormEvent) {
         const { onEnter } = this.props;
         evt.preventDefault();
-        onEnter && onEnter(this.state.value);
+        onEnter && onEnter({
+            prefix: this.prefix,
+            emit: true,
+            command: this.state.value
+        });
         this.setState({
             value: ''
         })
@@ -28,11 +46,14 @@ export default class TerminalInput extends React.Component<TerminalInputProps, T
     render() {
         return (
             <StyledCommand>
-                <StyledDir>~</StyledDir>
-                <StyledTerminalInput onSubmit={evt => this.handleSubmit(evt)}>
-                    <input type="text" value={this.state.value} onChange={(evt) => this.setValue(evt.target.value)}></input>
+                <StyledDir>{this.prefix}</StyledDir>
+                <StyledTerminalInput onSubmit={evt => this.handleSubmit(evt)} >
+                    <input
+                        type="text"
+                        value={this.state.value}
+                        onChange={(evt) => this.setValue(evt.target.value)} />
                 </StyledTerminalInput>
-            </StyledCommand >
+            </StyledCommand>
         )
     }
 }
