@@ -1,1 +1,1 @@
-export * from './content-window';
+export { default as ContentWindow } from './content-window';

@@ -26,11 +26,13 @@ export default class TerminalInput extends React.Component<TerminalInputProps, T
 
     handleSubmit(evt: FormEvent) {
         const { onEnter } = this.props;
+        const listOfContent = this.state.value.split(' ');
         evt.preventDefault();
         onEnter && onEnter({
             prefix: this.prefix,
             emit: true,
-            command: this.state.value
+            command: listOfContent.splice(0, 1)[0].trim(),
+            args: listOfContent
         });
         this.setState({
             value: ''

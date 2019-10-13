@@ -3,6 +3,7 @@ import { PropsWithChildren } from 'react';
 type ContentWindowProps = PropsWithChildren<{
     width?: string;
     height?: string;
+    position: number;
 }>;
 type ToolBarProps = PropsWithChildren<{}>;
 type LeftPartProps = PropsWithChildren<{}>;
@@ -33,8 +34,12 @@ export const StyledContentWindow = styled.div<ContentWindowProps> `
         position: relative;
         font-size: 14px;
         width: 600px;
-        box-shadow: 0 0 30px 10px rgba(black, .4);
+        box-shadow: 0 0 30px 10px rgba(0,0,0, .4);
+        will-transform: transform;
         border-radius: 5px;
+        resize: both;
+        position: absolute;
+        z-index: ${({ position }) => 20 + position}
     }
 `;
 

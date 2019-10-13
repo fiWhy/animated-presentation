@@ -1,25 +1,30 @@
-import React, { FunctionComponent } from 'react';
+import React, { forwardRef, PropsWithChildren } from 'react';
 import { StyledToolBar, LeftPart, RightPart, StyledTerminalButton } from './styled';
 
-type ToolbarProps = {
-    buttons: {
-        zoom: boolean;
-        minimize: boolean;
-        close: boolean;
-    }
+export type ToolbarButtons = {
+    zoom: boolean;
+    minimize: boolean;
+    close: boolean;
 }
 
-export const ToolBar: FunctionComponent<ToolbarProps> = ({
-    children, buttons: { zoom, close, minimize }
-}) => (
-        <StyledToolBar>
+type ToolbarProps = {
+    onClose: () => void;
+    onMinimize: () => void;
+    onZoom: () => void;
+    buttons: ToolbarButtons;
+}
+
+export const ToolBar = forwardRef<HTMLDivElement, PropsWithChildren<ToolbarProps>>(({
+    children, buttons: { zoom, close, minimize }, onClose, onMinimize, onZoom
+}, ref) => (
+        <StyledToolBar ref={ref}>
             < LeftPart >
-                {close ? <StyledTerminalButton type="close" /> : null}
-                {minimize ? <StyledTerminalButton type="minimize" /> : null}
-                {zoom ? <StyledTerminalButton type="zoom" /> : null}
+                {close ? <StyledTerminalButton onClick={onClose} type="close" /> : null}
+                {minimize ? <StyledTerminalButton onClick={onMinimize} type="minimize" /> : null}
+                {zoom ? <StyledTerminalButton onClick={onZoom} type="zoom" /> : null}
             </LeftPart >
             <RightPart>
                 {children}
             </RightPart>
         </StyledToolBar >
-    )
+    ));

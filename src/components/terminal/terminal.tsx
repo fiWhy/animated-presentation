@@ -1,9 +1,10 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, PropsWithChildren } from 'react';
 import { format } from 'date-fns';
 import { Command, CLIUtils, OutputCommand } from './contracts/command';
 import TerminalBody from './body';
+import { connect } from 'react-redux';
 
-type TerminalProps = {
+type TerminalProps = PropsWithChildren<{
     user: string;
     machine: string;
     owner: string;
@@ -11,7 +12,8 @@ type TerminalProps = {
     cliUtils: CLIUtils;
     onEnter: (command: OutputCommand) => void;
     onPositionChange: (position: string) => void;
-}
+}>
+
 type TerminalState = {
     width: number;
     height: number;
@@ -20,7 +22,7 @@ type TerminalState = {
     inputIsActive: boolean;
 }
 
-export default class Terminal extends PureComponent<TerminalProps, TerminalState> {
+class Terminal extends PureComponent<TerminalProps, TerminalState> {
 
     state = {
         width: 0,
@@ -104,4 +106,17 @@ export default class Terminal extends PureComponent<TerminalProps, TerminalState
                 user={user} />
         )
     }
-} 
+}
+
+const mapStateToProps = () => ({
+
+})
+
+const mapDispatchToProps = () => ({
+
+})
+
+export default connect<any, any, TerminalProps, TerminalState>(
+    mapStateToProps,
+    mapDispatchToProps
+)(Terminal);

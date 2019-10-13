@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import Wrapper from 'components/wrapper';
+import { Wrapper } from 'components/wrapper';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Introduction from 'lessons/01.introduction';
 import { ThemeProvider } from 'styled-components';
